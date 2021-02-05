@@ -1,3 +1,7 @@
 domain: jeffthecoder.xyz
 repo: github.com/jeffguorg/demo-stream-nginx-controller
+resources:
+- group: nginx-stream
+  kind: StreamIngress
+  version: v1beta1
 version: "2"

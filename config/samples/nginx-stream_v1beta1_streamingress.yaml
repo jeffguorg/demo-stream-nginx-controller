@@ -1,0 +1,7 @@
+apiVersion: nginx-stream.jeffthecoder.xyz/v1beta1
+kind: StreamIngress
+metadata:
+  name: streamingress-sample
+spec:
+  # Add fields here
+  foo: bar
