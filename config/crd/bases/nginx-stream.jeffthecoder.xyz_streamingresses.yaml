@@ -36,10 +36,38 @@ spec:
           spec:
             description: StreamIngressSpec defines the desired state of StreamIngress
             properties:
-              foo:
-                description: Foo is an example field of StreamIngress. Edit StreamIngress_types.go
-                  to remove/update
+              is_service:
+                type: boolean
+              listen:
+                description: StreamAddress defines the address for a stream server
+                  or upstream
+                properties:
+                  host:
+                    type: string
+                  port:
+                    type: integer
+                required:
+                - host
+                - port
+                type: object
+              protocol:
                 type: string
+              upstream:
+                description: StreamAddress defines the address for a stream server
+                  or upstream
+                properties:
+                  host:
+                    type: string
+                  port:
+                    type: integer
+                required:
+                - host
+                - port
+                type: object
+            required:
+            - listen
+            - protocol
+            - upstream
             type: object
           status:
             description: StreamIngressStatus defines the observed state of StreamIngress
