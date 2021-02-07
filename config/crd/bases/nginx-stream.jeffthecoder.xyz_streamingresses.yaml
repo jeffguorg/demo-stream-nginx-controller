@@ -39,17 +39,7 @@ spec:
               is_service:
                 type: boolean
               listen:
-                description: StreamAddress defines the address for a stream server
-                  or upstream
-                properties:
-                  host:
-                    type: string
-                  port:
-                    type: integer
-                required:
-                - host
-                - port
-                type: object
+                type: integer
               protocol:
                 type: string
               upstream:
@@ -66,7 +56,6 @@ spec:
                 type: object
             required:
             - listen
-            - protocol
             - upstream
             type: object
           status:

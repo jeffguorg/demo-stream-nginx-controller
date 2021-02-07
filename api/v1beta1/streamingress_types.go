@@ -34,8 +34,8 @@ type StreamIngressSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Protocol string        `json:"protocol,omityempty"`
-	Listen   StreamAddress `json:"listen"`
+	Protocol string `json:"protocol,omitempty"`
+	Listen   uint   `json:"listen"`
 
 	Upstream  StreamAddress `json:"upstream"`
 	IsService bool          `json:"is_service,omitempty"`
