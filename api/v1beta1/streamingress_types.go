@@ -23,13 +23,22 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+// StreamAddress defines the address for a stream server or upstream
+type StreamAddress struct {
+	Host string `json:"host"`
+	Port uint   `json:"port"`
+}
+
 // StreamIngressSpec defines the desired state of StreamIngress
 type StreamIngressSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of StreamIngress. Edit StreamIngress_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Protocol string        `json:"protocol,omityempty"`
+	Listen   StreamAddress `json:"listen"`
+
+	Upstream  StreamAddress `json:"upstream"`
+	IsService bool          `json:"is_service,omitempty"`
 }
 
 // StreamIngressStatus defines the observed state of StreamIngress
