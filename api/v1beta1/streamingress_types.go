@@ -25,8 +25,9 @@ import (
 
 // StreamAddress defines the address for a stream server or upstream
 type StreamAddress struct {
-	Host string `json:"host"`
-	Port uint   `json:"port"`
+	Namespace string `json:"namespace,omitempty"`
+	Service   string `json:"service"`
+	Port      uint   `json:"port"`
 }
 
 // StreamIngressSpec defines the desired state of StreamIngress

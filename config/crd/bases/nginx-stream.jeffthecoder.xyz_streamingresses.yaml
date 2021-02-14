@@ -46,13 +46,15 @@ spec:
                 description: StreamAddress defines the address for a stream server
                   or upstream
                 properties:
-                  host:
+                  namespace:
                     type: string
                   port:
                     type: integer
+                  service:
+                    type: string
                 required:
-                - host
                 - port
+                - service
                 type: object
             required:
             - listen

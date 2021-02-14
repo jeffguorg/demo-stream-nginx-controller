@@ -4,4 +4,8 @@ metadata:
   name: streamingress-sample
 spec:
   # Add fields here
-  foo: bar
+  listen: 8080
+  upstream:
+    host: some-tcp-port
+    port: 1234
+  
