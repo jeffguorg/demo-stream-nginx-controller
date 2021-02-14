@@ -62,8 +62,7 @@ func (r *StreamIngressReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	}
 
 	if err := r.List(ctx, &ingressList, client.MatchingFields{
-		".spec.listen":   strconv.FormatUint(uint64(requestIngress.Spec.Listen), 10),
-		".spec.protocol": requestIngress.Spec.Protocol,
+		"listen": fmt.Sprintf("%v/%v", requestIngress.Spec.Protocol, requestIngress.Spec.Listen),
 	}); err != nil {
 		logger.Error(err, "failed to list stream ingress")
 		return ctrl.Result{RequeueAfter: time.Second * 5}, err

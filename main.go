@@ -18,6 +18,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 
 	"k8s.io/apimachinery/pkg/runtime"
@@ -65,6 +66,15 @@ func main() {
 		setupLog.Error(err, "unable to start manager")
 		os.Exit(1)
 	}
+
+	cache := mgr.GetCache()
+	cache.IndexField(&nginxstreamv1beta1.StreamIngress{}, "listen", func(o runtime.Object) []string {
+		switch o := o.(type) {
+		case *nginxstreamv1beta1.StreamIngress:
+			return []string{fmt.Sprintf("%v/%v", o.Spec.Protocol, o.Spec.Listen)}
+		}
+		return []string{}
+	})
 
 	if err = (&controllers.StreamIngressReconciler{
 		Client: mgr.GetClient(),
