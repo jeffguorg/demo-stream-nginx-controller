@@ -25,6 +25,7 @@ import (
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	nginxstreamv1beta1 "github.com/jeffguorg/demo-stream-nginx-controller/api/v1beta1"
@@ -47,6 +48,14 @@ func init() {
 func main() {
 	var metricsAddr string
 	var enableLeaderElection bool
+
+	var (
+		tcpConfigMapName   string
+		udpConfigMapName   string
+		ingressServiceName string
+		ingressNamespace   string
+	)
+
 	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")
 	flag.BoolVar(&enableLeaderElection, "enable-leader-election", false,
 		"Enable leader election for controller manager. "+
@@ -80,6 +89,10 @@ func main() {
 		Client: mgr.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("StreamIngress"),
 		Scheme: mgr.GetScheme(),
+
+		TCPConfigMapKey: client.ObjectKey{Namespace: ingressNamespace, Name: tcpConfigMapName},
+		UDPConfigMapKey: client.ObjectKey{Namespace: ingressNamespace, Name: udpConfigMapName},
+		ServiceKey:      client.ObjectKey{Namespace: ingressNamespace, Name: ingressServiceName},
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "StreamIngress")
 		os.Exit(1)
